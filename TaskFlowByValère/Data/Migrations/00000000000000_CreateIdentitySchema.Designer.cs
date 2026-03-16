@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System;
 using TaskFlowByValère.Data;
-using TaskFlowForValere.Data;
+using TaskFlowByValere.Data;
 
 namespace TaskFlowByValère.Data.Migrations
 {

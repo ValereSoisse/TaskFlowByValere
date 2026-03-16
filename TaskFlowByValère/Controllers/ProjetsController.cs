@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using TaskFlowForValere.Data;
-using TaskFlowForValere.Models;
+using TaskFlowByValere.Data;
+using TaskFlowByValere.Models;
 
 namespace TaskFlowByValère.Controllers
 {
@@ -34,7 +34,9 @@ namespace TaskFlowByValère.Controllers
             }
 
             var projet = await _context.Projets
+                .Include(p => p.Tickets) 
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (projet == null)
             {
                 return NotFound();

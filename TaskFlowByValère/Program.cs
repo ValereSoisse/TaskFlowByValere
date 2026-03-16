@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TaskFlowByValère.Data;
-using TaskFlowForValere.Data;
+using TaskFlowByValere.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 

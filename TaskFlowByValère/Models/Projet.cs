@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace TaskFlowForValere.Models
+namespace TaskFlowByValere.Models
 {
     public class Projet
     {

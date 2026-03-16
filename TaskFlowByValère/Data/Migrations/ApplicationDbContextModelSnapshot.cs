@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using TaskFlowForValere.Data;
+using TaskFlowByValere.Data;
 
 #nullable disable
 
@@ -224,7 +224,7 @@ namespace TaskFlowByValère.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("TaskFlowForValere.Models.Projet", b =>
+            modelBuilder.Entity("TaskFlowByValere.Models.Projet", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -251,7 +251,7 @@ namespace TaskFlowByValère.Data.Migrations
                     b.ToTable("Projets");
                 });
 
-            modelBuilder.Entity("TaskFlowForValere.Models.Ticket", b =>
+            modelBuilder.Entity("TaskFlowByValere.Models.Ticket", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -341,9 +341,9 @@ namespace TaskFlowByValère.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("TaskFlowForValere.Models.Ticket", b =>
+            modelBuilder.Entity("TaskFlowByValere.Models.Ticket", b =>
                 {
-                    b.HasOne("TaskFlowForValere.Models.Projet", "Projet")
+                    b.HasOne("TaskFlowByValere.Models.Projet", "Projet")
                         .WithMany("Tickets")
                         .HasForeignKey("ProjetId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -352,7 +352,7 @@ namespace TaskFlowByValère.Data.Migrations
                     b.Navigation("Projet");
                 });
 
-            modelBuilder.Entity("TaskFlowForValere.Models.Projet", b =>
+            modelBuilder.Entity("TaskFlowByValere.Models.Projet", b =>
                 {
                     b.Navigation("Tickets");
                 });

@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using TaskFlowForValere.Models;
+using TaskFlowByValere.Models;
 
-namespace TaskFlowForValere.Data
+namespace TaskFlowByValere.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
