@@ -20,10 +20,36 @@ namespace TaskFlowByValère.Controllers
         }
 
         // GET: Tickets
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string recherche, string statut, string priorite)
         {
-            var applicationDbContext = _context.Tickets.Include(t => t.Projet);
-            return View(await applicationDbContext.ToListAsync());
+            var tickets = _context.Tickets.Include(t => t.Projet).AsQueryable();
+
+            // Filtre par recherche
+            if (!string.IsNullOrEmpty(recherche))
+            {
+                tickets = tickets.Where(t => t.Titre.Contains(recherche) ||
+                                             t.Description.Contains(recherche) ||
+                                             t.AssigneA.Contains(recherche));
+            }
+
+            // Filtre par statut
+            if (!string.IsNullOrEmpty(statut))
+            {
+                tickets = tickets.Where(t => t.Statut == statut);
+            }
+
+            // Filtre par priorité
+            if (!string.IsNullOrEmpty(priorite))
+            {
+                tickets = tickets.Where(t => t.Priorite == priorite);
+            }
+
+            ViewBag.Recherche = recherche;
+            ViewBag.Statut = statut;
+            ViewBag.Priorite = priorite;
+            ViewBag.NbResultats = await tickets.CountAsync();
+
+            return View(await tickets.ToListAsync());
         }
 
         // GET: Tickets/Details/5

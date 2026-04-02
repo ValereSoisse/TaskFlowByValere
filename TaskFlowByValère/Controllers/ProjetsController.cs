@@ -20,9 +20,28 @@ namespace TaskFlowByValère.Controllers
         }
 
         // GET: Projets
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string recherche, string statut)
         {
-            return View(await _context.Projets.ToListAsync());
+            var projets = _context.Projets.Include(p => p.Tickets).AsQueryable();
+
+            // Filtre par recherche
+            if (!string.IsNullOrEmpty(recherche))
+            {
+                projets = projets.Where(p => p.Nom.Contains(recherche) ||
+                                            (p.Description != null && p.Description.Contains(recherche)));
+            }
+
+            // Filtre par statut
+            if (!string.IsNullOrEmpty(statut))
+            {
+                projets = projets.Where(p => p.Statut == statut);
+            }
+
+            ViewBag.Recherche = recherche;
+            ViewBag.Statut = statut;
+            ViewBag.NbResultats = await projets.CountAsync();
+
+            return View(await projets.ToListAsync());
         }
 
         // GET: Projets/Details/5

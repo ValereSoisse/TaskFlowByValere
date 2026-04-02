@@ -13,11 +13,58 @@
         </a>
     </div>
 
+    <!-- Barre de recherche et filtres -->
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-body">
+            <form asp-action="Index" method="get">
+                <div class="row g-2">
+                    <div class="col-md-5">
+                        <input type="text" name="recherche" value="@ViewBag.Recherche"
+                               class="form-control"
+                               placeholder="🔍 Rechercher un ticket..." />
+                    </div>
+                    <div class="col-md-3">
+                        <select name="statut" class="form-select">
+                            <option value="">-- Tous les statuts --</option>
+                            <option value="À faire" selected="@(ViewBag.Statut == "À faire")">🟡 À faire</option>
+                            <option value="En cours" selected="@(ViewBag.Statut == "En cours")">🔵 En cours</option>
+                            <option value="Terminé" selected="@(ViewBag.Statut == "Terminé")">🟢 Terminé</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <select name="priorite" class="form-select">
+                            <option value="">-- Priorité --</option>
+                            <option value="Basse" selected="@(ViewBag.Priorite == "Basse")">⚪ Basse</option>
+                            <option value="Normale" selected="@(ViewBag.Priorite == "Normale")">🔵 Normale</option>
+                            <option value="Haute" selected="@(ViewBag.Priorite == "Haute")">🔴 Haute</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2 d-flex gap-2">
+                        <button type="submit" class="btn text-white w-100"
+                                style="background-color: #1A6FD4;">🔍 Filtrer</button>
+                        <a asp-action="Index" class="btn btn-outline-secondary w-100">✖</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Nb résultats -->
+    <p class="text-muted small mb-3">
+        @ViewBag.NbResultats ticket(s) trouvé(s)
+        @if (!string.IsNullOrEmpty(ViewBag.Recherche as string) ||
+             !string.IsNullOrEmpty(ViewBag.Statut as string) ||
+             !string.IsNullOrEmpty(ViewBag.Priorite as string))
+        {
+            <a asp-action="Index" class="ms-2 text-danger small">Effacer les filtres</a>
+        }
+    </p>
+
     @if (!Model.Any())
     {
         <div class="alert text-white text-center p-5" style="background-color: #0A1F44;">
-            <h4>Aucun ticket pour le moment</h4>
-            <p>Cliquez sur "Nouveau ticket" pour commencer !</p>
+            <h4>Aucun ticket trouvé</h4>
+            <p>Modifiez vos filtres ou créez un nouveau ticket.</p>
         </div>
     }
     else
@@ -29,8 +76,8 @@
                     <div class="card h-100 shadow-sm border-0">
                         <div class="card-header text-white fw-bold d-flex justify-content-between"
                              style="background-color:
-                                        @(ticket.Priorite == "Haute" ? "#dc3545" :
-                                                               ticket.Priorite == "Normale" ? "#1A6FD4" : "#6c757d")">
+                                @(ticket.Priorite == "Haute" ? "#dc3545" :
+                                  ticket.Priorite == "Normale" ? "#1A6FD4" : "#6c757d")">
                             <span>🎫 @ticket.Titre</span>
                             <span class="badge bg-light text-dark">@ticket.Priorite</span>
                         </div>
@@ -41,25 +88,27 @@
                             </p>
                             @if (ticket.AssigneA != null)
                             {
-                                <p class="card-text">
-                                    <small>👤 @ticket.AssigneA</small>
-                                </p>
+                                <p class="card-text"><small>👤 @ticket.AssigneA</small></p>
+                            }
+                            @if (ticket.Projet != null)
+                            {
+                                <p class="card-text"><small>📁 @ticket.Projet.Nom</small></p>
                             }
                             <span class="badge" style="background-color:
-                                        @(ticket.Statut == "En cours" ? "#1A6FD4" :
-                                                                                  ticket.Statut == "Terminé" ? "#198754" :
-                                                                                  ticket.Statut == "À faire" ? "#ffc107" : "#6c757d");
-                                          color: @(ticket.Statut == "À faire" ? "black" : "white")">
+                                @(ticket.Statut == "En cours" ? "#1A6FD4" :
+                                  ticket.Statut == "Terminé" ? "#198754" :
+                                  ticket.Statut == "À faire" ? "#ffc107" : "#6c757d");
+                                  color: @(ticket.Statut == "À faire" ? "black" : "white")">
                                 @ticket.Statut
                             </span>
                         </div>
                         <div class="card-footer bg-white border-0 d-flex gap-2">
                             <a asp-action="Details" asp-route-id="@ticket.Id"
-                               class="btn btn-sm btn-outline-primary">👁️ Détails</a>
+                               class="btn btn-sm btn-outline-primary">👁️</a>
                             <a asp-action="Edit" asp-route-id="@ticket.Id"
-                               class="btn btn-sm btn-outline-warning">✏️ Modifier</a>
+                               class="btn btn-sm btn-outline-warning">✏️</a>
                             <a asp-action="Delete" asp-route-id="@ticket.Id"
-                               class="btn btn-sm btn-outline-danger">🗑️ Supprimer</a>
+                               class="btn btn-sm btn-outline-danger">🗑️</a>
                         </div>
                     </div>
                 </div>

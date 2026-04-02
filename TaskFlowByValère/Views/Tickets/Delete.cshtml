@@ -1,63 +1,58 @@
 ﻿@model TaskFlowByValere.Models.Ticket
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Supprimer le ticket";
 }
 
-<h1>Delete</h1>
+<div class="container mt-4">
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Ticket</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Titre)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Titre)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Priorite)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Priorite)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Statut)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Statut)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DateCreation)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DateCreation)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Projet)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Projet.Nom)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AssigneA)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AssigneA)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 style="color: #dc3545;">🗑️ Supprimer le ticket</h2>
+        <a asp-action="Index" class="btn btn-outline-secondary">← Retour</a>
+    </div>
+
+    <div class="card shadow-sm border-0" style="max-width: 600px;">
+        <div class="card-header text-white fw-bold" style="background-color: #dc3545;">
+            ⚠️ Confirmer la suppression
+        </div>
+        <div class="card-body">
+
+            <div class="alert alert-danger">
+                ⚠️ Cette action est <strong>irréversible</strong>.
+            </div>
+
+            <p><strong>Titre :</strong> @Model.Titre</p>
+            <p><strong>Description :</strong> @(Model.Description ?? "Aucune description")</p>
+            <p>
+                <strong>Priorité :</strong>
+                <span class="badge" style="background-color:
+                    @(Model.Priorite == "Haute" ? "#dc3545" :
+                                                          Model.Priorite == "Normale" ? "#1A6FD4" : "#6c757d")">
+                    @Model.Priorite
+                </span>
+            </p>
+            <p>
+                <strong>Statut :</strong>
+                <span class="badge" style="background-color:
+                    @(Model.Statut == "En cours" ? "#1A6FD4" :
+                                                          Model.Statut == "Terminé" ? "#198754" :
+                                                          Model.Statut == "À faire" ? "#ffc107" : "#6c757d");
+                      color: @(Model.Statut == "À faire" ? "black" : "white")">
+                    @Model.Statut
+                </span>
+            </p>
+            <p><strong>Assigné à :</strong> @(Model.AssigneA ?? "Non assigné")</p>
+
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="Id" />
+                <div class="d-flex gap-2 mt-3">
+                    <button type="submit" class="btn btn-danger">
+                        🗑️ Oui, supprimer
+                    </button>
+                    <a asp-action="Index" class="btn btn-outline-secondary">Annuler</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
 </div>

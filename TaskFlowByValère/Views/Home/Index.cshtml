@@ -4,63 +4,89 @@
 
 <div class="container mt-4">
 
-    <!-- Hero Section -->
+    <!-- Hero -->
     <div class="p-5 mb-4 rounded-3" style="background: linear-gradient(135deg, #0A1F44, #1A6FD4); color:white;">
         <div class="container-fluid py-3">
-            <h1 class="display-5 fw-bold">📋 TaskFlow For Valère</h1>
-            <p class="col-md-8 fs-5">Gestionnaire de projets & tickets — développé en ASP.NET Core / C# / SQL Server</p>
+            <h1 class="display-5 fw-bold">📋 TaskFlow By Valère</h1>
+            <p class="col-md-8 fs-5">Gestionnaire de projets & tickets — ASP.NET Core / C# / SQL Server</p>
             <a class="btn btn-light btn-lg me-2" asp-controller="Projets" asp-action="Index">📁 Voir les projets</a>
             <a class="btn btn-outline-light btn-lg" asp-controller="Tickets" asp-action="Index">🎫 Voir les tickets</a>
         </div>
     </div>
 
-    <!-- Cards stats -->
+    <!-- Statistiques -->
+    <h4 class="mb-3" style="color: #0A1F44;">📊 Tableau de bord</h4>
     <div class="row mb-4">
-        <div class="col-md-4">
-            <div class="card text-white mb-3" style="background-color: #0A1F44;">
-                <div class="card-body text-center">
-                    <h1 class="card-title display-4">📁</h1>
-                    <h5 class="card-title">Projets</h5>
-                    <p class="card-text">Créez et gérez vos projets</p>
-                    <a asp-controller="Projets" asp-action="Index" class="btn btn-light">Accéder</a>
+        <div class="col-md-4 mb-3">
+            <div class="card text-white text-center shadow-sm border-0"
+                 style="background: linear-gradient(135deg, #0A1F44, #102E6A);">
+                <div class="card-body py-4">
+                    <h1 class="display-4 fw-bold">@ViewBag.NbProjets</h1>
+                    <p class="fs-5 mb-0">📁 Projets</p>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card text-white mb-3" style="background-color: #1A6FD4;">
-                <div class="card-body text-center">
-                    <h1 class="card-title display-4">🎫</h1>
-                    <h5 class="card-title">Tickets</h5>
-                    <p class="card-text">Suivez vos tâches et anomalies</p>
-                    <a asp-controller="Tickets" asp-action="Index" class="btn btn-light">Accéder</a>
+        <div class="col-md-4 mb-3">
+            <div class="card text-white text-center shadow-sm border-0"
+                 style="background: linear-gradient(135deg, #1A6FD4, #4D8AFF);">
+                <div class="card-body py-4">
+                    <h1 class="display-4 fw-bold">@ViewBag.NbTickets</h1>
+                    <p class="fs-5 mb-0">🎫 Tickets total</p>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card text-white mb-3" style="background-color: #102E6A;">
+        <div class="col-md-4 mb-3">
+            <div class="card text-white text-center shadow-sm border-0"
+                 style="background: linear-gradient(135deg, #198754, #20c997);">
+                <div class="card-body py-4">
+                    <h1 class="display-4 fw-bold">@ViewBag.NbTermines</h1>
+                    <p class="fs-5 mb-0">✅ Terminés</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Détail statuts -->
+    <div class="row mb-4">
+        <div class="col-md-6 mb-3">
+            <div class="card shadow-sm border-0">
+                <div class="card-header fw-bold text-white" style="background-color: #1A6FD4;">
+                    🔵 En cours
+                </div>
                 <div class="card-body text-center">
-                    <h1 class="card-title display-4">👤</h1>
-                    <h5 class="card-title">Compte</h5>
-                    <p class="card-text">Gérez votre profil utilisateur</p>
-                    <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-light">S'inscrire</a>
+                    <h2 class="display-5 fw-bold" style="color: #1A6FD4;">@ViewBag.NbEnCours</h2>
+                    <p class="text-muted">tickets en cours de traitement</p>
+                    <a asp-controller="Tickets" asp-action="Index" class="btn btn-sm btn-outline-primary">Voir les tickets</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <div class="card shadow-sm border-0">
+                <div class="card-header fw-bold text-white" style="background-color: #ffc107;">
+                    🟡 À faire
+                </div>
+                <div class="card-body text-center">
+                    <h2 class="display-5 fw-bold" style="color: #ffc107;">@ViewBag.NbAFaire</h2>
+                    <p class="text-muted">tickets en attente</p>
+                    <a asp-controller="Tickets" asp-action="Index" class="btn btn-sm btn-outline-warning">Voir les tickets</a>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Stack technique -->
-    <div class="card mb-4">
-        <div class="card-header fw-bold" style="background-color: #0A1F44; color:white;">
+    <div class="card mb-4 border-0 shadow-sm">
+        <div class="card-header fw-bold text-white" style="background-color: #0A1F44;">
             🛠️ Stack technique
         </div>
         <div class="card-body">
             <div class="row text-center">
-                <div class="col-md-3 mb-2"><span class="badge fs-6 p-2" style="background-color:#0A1F44;">C# / .NET 10</span></div>
-                <div class="col-md-3 mb-2"><span class="badge fs-6 p-2" style="background-color:#1A6FD4;">ASP.NET Core MVC</span></div>
-                <div class="col-md-3 mb-2"><span class="badge fs-6 p-2" style="background-color:#102E6A;">Entity Framework Core</span></div>
-                <div class="col-md-3 mb-2"><span class="badge fs-6 p-2" style="background-color:#0A1F44;">SQL Server</span></div>
-                <div class="col-md-3 mb-2"><span class="badge fs-6 p-2" style="background-color:#1A6FD4;">Bootstrap 5</span></div>
-                <div class="col-md-3 mb-2"><span class="badge fs-6 p-2" style="background-color:#102E6A;">Identity Auth</span></div>
+                <div class="col-md-2 mb-2"><span class="badge fs-6 p-2" style="background-color:#0A1F44;">C# / .NET 10</span></div>
+                <div class="col-md-2 mb-2"><span class="badge fs-6 p-2" style="background-color:#1A6FD4;">ASP.NET Core MVC</span></div>
+                <div class="col-md-2 mb-2"><span class="badge fs-6 p-2" style="background-color:#102E6A;">Entity Framework</span></div>
+                <div class="col-md-2 mb-2"><span class="badge fs-6 p-2" style="background-color:#0A1F44;">SQL Server</span></div>
+                <div class="col-md-2 mb-2"><span class="badge fs-6 p-2" style="background-color:#1A6FD4;">Bootstrap 5</span></div>
+                <div class="col-md-2 mb-2"><span class="badge fs-6 p-2" style="background-color:#102E6A;">Identity Auth</span></div>
             </div>
         </div>
     </div>
