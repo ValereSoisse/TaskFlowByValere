@@ -1,62 +1,82 @@
 ﻿@model TaskFlowByValere.Models.Ticket
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Nouveau ticket";
 }
 
-<h1>Create</h1>
+<div class="container mt-4">
 
-<h4>Ticket</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Titre" class="control-label"></label>
-                <input asp-for="Titre" class="form-control" />
-                <span asp-validation-for="Titre" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Priorite" class="control-label"></label>
-                <input asp-for="Priorite" class="form-control" />
-                <span asp-validation-for="Priorite" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Statut" class="control-label"></label>
-                <input asp-for="Statut" class="form-control" />
-                <span asp-validation-for="Statut" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateCreation" class="control-label"></label>
-                <input asp-for="DateCreation" class="form-control" />
-                <span asp-validation-for="DateCreation" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ProjetId" class="control-label"></label>
-                <select asp-for="ProjetId" class ="form-control" asp-items="ViewBag.ProjetId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="AssigneA" class="control-label"></label>
-                <input asp-for="AssigneA" class="form-control" />
-                <span asp-validation-for="AssigneA" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 style="color: #0A1F44;">➕ Nouveau ticket</h2>
+        <a asp-action="Index" class="btn btn-outline-secondary">← Retour</a>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+    <div class="card shadow-sm border-0" style="max-width: 600px;">
+        <div class="card-header text-white fw-bold" style="background-color: #1A6FD4;">
+            🎫 Informations du ticket
+        </div>
+        <div class="card-body">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                <div class="mb-3">
+                    <label asp-for="Titre" class="form-label fw-bold"></label>
+                    <input asp-for="Titre" class="form-control" placeholder="Ex: Corriger le bug de connexion..." />
+                    <span asp-validation-for="Titre" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Description" class="form-label fw-bold"></label>
+                    <textarea asp-for="Description" class="form-control" rows="3"
+                              placeholder="Décrivez le ticket..."></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Priorite" class="form-label fw-bold"></label>
+                    <select asp-for="Priorite" class="form-select">
+                        <option value="Basse">⚪ Basse</option>
+                        <option value="Normale" selected>🔵 Normale</option>
+                        <option value="Haute">🔴 Haute</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Statut" class="form-label fw-bold"></label>
+                    <select asp-for="Statut" class="form-select">
+                        <option value="À faire">🟡 À faire</option>
+                        <option value="En cours">🔵 En cours</option>
+                        <option value="Terminé">🟢 Terminé</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="AssigneA" class="form-label fw-bold"></label>
+                    <input asp-for="AssigneA" class="form-control" placeholder="Ex: Valère" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ProjetId" class="form-label fw-bold">Projet</label>
+                    <select asp-for="ProjetId" class="form-select"
+                            asp-items="ViewBag.ProjetId">
+                        <option value="">-- Sélectionner un projet --</option>
+                    </select>
+                    <span asp-validation-for="ProjetId" class="text-danger small"></span>
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn text-white" style="background-color: #1A6FD4;">
+                        💾 Créer le ticket
+                    </button>
+                    <a asp-action="Index" class="btn btn-outline-secondary">Annuler</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
